@@ -1,3 +1,66 @@
+# Writeup
+
+### Scenario 1 "Intro":
+
+In the config file QuadControlParams.txt, the mass parameter was tuned to 0.485 to make the quadcopter stay in the same spot.
+It uses the following equation to calculate the thrust for each rotor:
+
+```cpp
+QuadControlParams.Mass * 9.81 / 4
+```
+
+in the function
+```cpp
+VehicleCommand QuadControl::GenerateMotorCommands(float collThrustCmd, V3F momentCmd)
+```
+
+![scenario_1](writeup/scenario_1.jpg)
+![scenario_console_1](writeup/scenario_console_1.jpg)
+
+### Scenario 2 "Altitude Control":
+
+In the config file QuadControlParams.txt
+ - __kpPQR__ parameter was tuned to 95, 95, 46
+ - __kpBank__ parameter was tuned to 16
+
+![scenario_2](writeup/scenario_2.jpg)
+![scenario_console_2](writeup/scenario_console_2.jpg)
+
+### Scenario 3 "Position Control":
+
+In the config file QuadControlParams.txt
+ - __kpPosXY__ parameter was tuned to 28
+ - __kpPosZ__ parameter was tuned to 28
+ - __kpVelXY__ parameter was tuned to 8.5
+ - __kpVelZ__ parameter was tuned to 8.5
+ - __kpYaw__ parameter was tuned to 4
+
+![scenario_3](writeup/scenario_3.jpg)
+![scenario_console_3](writeup/scenario_console_3.jpg)
+
+### Scenario 4 "Non-idealities":
+
+In the config file QuadControlParams.txt
+ - __kpVelXY__ parameter was tuned to 10
+ - __kpVelZ__ parameter was tuned to 10
+ - __KiPosZ__ parameter was tuned to 50
+
+```cpp
+  integratedAltitudeError += z_err * dt;
+  auto const i_term{ KiPosZ * integratedAltitudeError };
+  auto const u_1_bar{ p_term + i_term + d_term + accelZCmd };
+```
+
+![scenario_4](writeup/scenario_4.jpg)
+![scenario_console_4](writeup/scenario_console_4.jpg)
+
+### Scenario 5 "Trajectory Follow":
+
+No configuration changes were made for this scenario.
+
+![scenario_5](writeup/scenario_5.jpg)
+![scenario_console_5](writeup/scenario_console_5.jpg)
+
 # The C++ Project Readme #
 
 This is the readme for the C++ project.
